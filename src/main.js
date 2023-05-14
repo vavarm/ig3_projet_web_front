@@ -1,6 +1,22 @@
 import { createApp } from "vue"
-import "./style.css"
+import "./normalize.css"
 import App from "./App.vue"
+import Login from "./views/Login.vue"
+import Signup from "./views/Signup.vue"
+import Home from "./views/Home.vue"
+import * as VueRouter from "vue-router"
+
+// Vue Router
+const routes = [
+  { path: "/", component: Home },
+  { path: "/login", component: Login },
+  { path: "/signup", component: Signup },
+]
+
+const router = VueRouter.createRouter({
+  history: VueRouter.createWebHistory(),
+  routes,
+})
 
 // Vuetify
 import "vuetify/styles"
@@ -22,4 +38,4 @@ const vuetify = createVuetify({
   directives,
 })
 
-createApp(App).use(vuetify).mount("#app")
+createApp(App).use(vuetify).use(router).mount("#app")
