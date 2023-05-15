@@ -10,8 +10,12 @@ export default {
   },
   created() {
     const token = localStorage.getItem("token");
+    const userAdminLevel = localStorage.getItem("user_admin_level");
     if (token) {
       this.$store.commit('setToken', token)
+    }
+    if (userAdminLevel) {
+      this.$store.commit('setUserAdminLevel', userAdminLevel)
     }
   },
 }

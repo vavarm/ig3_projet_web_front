@@ -30,8 +30,10 @@ export default {
 	            "password": this.password
         });
             console.log(response);
-            localStorage.setItem("token", response.data.token);
-            this.$store.commit("setToken", response.data.token);
+            localStorage.setItem("token", response.data.token)
+            localStorage.setItem("user_admin_level", response.data.user_admin_level)
+            this.$store.commit("setToken", response.data.token)
+            this.$store.commit("setUserAdminLevel", response.data.user_admin_level)
             this.$router.push("/");
         } catch (error) {
             console.log(error);

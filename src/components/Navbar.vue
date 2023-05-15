@@ -9,13 +9,18 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("token")
-      this.$store.commit("setToken", null)
+      localStorage.removeItem("user_admin_level")
+      this.$store.commit("clearToken")
+      this.$store.commit("resetUserAdminLevel")
       this.$router.push("/")
     },
   },
   computed: {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn
+    },
+    isAdmin() {
+      return this.$store.getters.isAdmin
     },
   },
 }
@@ -41,11 +46,11 @@ export default {
         <v-icon>mdi-calendar</v-icon>
         <span v-if="lgAndUp" class="ml-1">Events</span>
       </v-btn>
-      <v-btn>
+      <v-btn v-if="isLoggedIn">
         <v-icon>mdi-calendar-check</v-icon>
         <span v-if="lgAndUp" class="ml-1">My Events</span>
       </v-btn>
-      <v-btn>
+      <v-btn v-if="isAdmin">
         <v-icon>mdi-account-group</v-icon>
         <span v-if="lgAndUp" class="ml-1">Users</span>
       </v-btn>
