@@ -5,7 +5,6 @@ export default {
   name: "LoginForm",
   data() {
     return {
-        valid: true,
         requestError: "",
         email: "",
         password: "",
@@ -64,8 +63,9 @@ export default {
         <v-btn color="primary" type="submit" @click.prevent="login">Login</v-btn>
         <v-btn color="secondary" to="/signup">I don't have an account</v-btn>
     </div>
-    <p>{{ requestError }}</p>
-    
+    <div v-if="requestError" class="error">
+        {{requestError}}
+    </div>
   </v-form>
 </template>
 
@@ -79,5 +79,9 @@ export default {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1rem;
+  }
+  .error {
+    color: red;
+    margin-top: 1rem;
   }
 </style>
