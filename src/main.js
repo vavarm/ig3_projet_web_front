@@ -1,4 +1,5 @@
 import { createApp } from "vue"
+import store from "./store"
 import "./normalize.css"
 import App from "./App.vue"
 import Login from "./views/Login.vue"
@@ -38,4 +39,4 @@ const vuetify = createVuetify({
   directives,
 })
 
-createApp(App).use(vuetify).use(router).mount("#app")
+createApp(App).use(store).use(vuetify).use(router).mount("#app")

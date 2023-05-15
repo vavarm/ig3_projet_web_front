@@ -3,7 +3,7 @@
 
 <template>
     <v-form class="form">
-        <v-form-title>Sign Up</v-form-title>
+        <h1>Sign Up</h1>
         <v-text-field
             v-model="email"
             label="Email"

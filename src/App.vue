@@ -8,6 +8,12 @@ export default {
   components: {
     Navbar,
   },
+  created() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      this.$store.commit('setToken', token)
+    }
+  },
 }
 </script>
 
@@ -21,9 +27,9 @@ export default {
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 0 1rem;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
 }
 .router-view {
   flex: 1;

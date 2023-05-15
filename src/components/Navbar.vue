@@ -6,6 +6,18 @@ const { lgAndUp } = useDisplay()
 <script>
 export default {
   name: "Navbar",
+  methods: {
+    logout() {
+      localStorage.removeItem("token")
+      this.$store.commit("setToken", null)
+      this.$router.push("/")
+    },
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn
+    },
+  },
 }
 </script>
 
@@ -37,12 +49,13 @@ export default {
         <v-icon>mdi-account-group</v-icon>
         <span v-if="lgAndUp" class="ml-1">Users</span>
       </v-btn>
-      <v-btn>
+      <v-btn v-if="isLoggedIn">
         <v-icon>mdi-account</v-icon>
         <span v-if="lgAndUp" class="ml-1">Account</span>
       </v-btn>
-      <v-btn color="primary" class="ml-5" to="/login">Login</v-btn>
-      <v-btn color="primary" class="ml-2" to="/signup">Sign Up</v-btn>
+      <v-btn color="primary" class="ml-5 py-4 px-8" rounded="xl" to="/login" v-if="!isLoggedIn">Login</v-btn>
+      <v-btn color="primary" class="ml-2 py-4 px-8" rounded="xl" to="/signup" v-if="!isLoggedIn">Sign Up</v-btn>
+      <v-btn text color="red" class="ml-5 py-4 px-8" @click="logout" v-if="isLoggedIn">Logout</v-btn>
     </v-toolbar-items>
   </div>
 </template>
