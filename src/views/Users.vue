@@ -191,7 +191,7 @@ export default {
                 <div v-if="error" class="error">{{error}}</div>
                 <div v-else-if="users.length === 0" class="loading">Loading...</div>
                 <div v-else v-for="user in users" :key="user.mail_address" class="d-flex" xs12 md6 lg4>
-                    <v-card>
+                    <v-card v-if="user.admin_level<2">
                     <v-card-title>
                         <h2>{{ user.username +  " " + (user.admin_level>0 ? "[ADMIN]" : "") }}</h2>
                     </v-card-title>
