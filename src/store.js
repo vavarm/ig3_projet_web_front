@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 export default new Vuex.Store({
   state: {
     token: null,
-    user_admin_level: 0
+    user_admin_level: 0,
+    user_mail_address: null
   },
   mutations: {
     setToken(state, token) {
@@ -15,14 +16,16 @@ export default new Vuex.Store({
     setUserAdminLevel(state, user_admin_level) {
         state.user_admin_level = user_admin_level
     },
-    resetUserAdminLevel(state) {
-        state.user_admin_level = 0
+    setUserMailAddress(state, user_mail_address) {
+        state.user_mail_address = user_mail_address
     },
     logout(state) {
         localStorage.removeItem('token')
         localStorage.removeItem('user_admin_level')
+        localStorage.removeItem('user_mail_address')
         state.token = null
         state.user_admin_level = 0
+        state.user_mail_address = null
     }
   },
   getters: {
@@ -31,6 +34,9 @@ export default new Vuex.Store({
     },
     isAdmin(state) {
         return state.user_admin_level > 0
+    },
+    getMailAddress(state) {
+      return state.user_mail_address
     }
   }
 });

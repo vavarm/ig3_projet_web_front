@@ -1,3 +1,7 @@
+<script setup>
+import Posts from "./Posts.vue"
+</script>
+
 <script>
 export default {
   name: "Home",
@@ -7,6 +11,12 @@ export default {
       description: "A platform for learning and teaching around diverse topics and skills with a community of passionate people."
     }
     
+  },
+  methods: {
+    scrollToPosts() {
+      const element = document.getElementById('posts');
+      element.scrollIntoView({ behavior: 'smooth' });
+    },
   },
   computed: {
     isLoggedIn() {
@@ -29,8 +39,14 @@ export default {
           <v-btn color="secondary" dark to="/signup">Signup</v-btn>
         </div>
       </div>
-      <v-icon size="80">mdi-arrow-down-bold-circle</v-icon>
+      <div class="d-flex flex-column align-center">
+        <v-btn @click="scrollToPosts" class="mb-2">
+          <v-icon>mdi-arrow-down-bold-circle</v-icon>
+          <div>See the recent posts</div>
+        </v-btn>
+      </div>
     </div>
+    <Posts id="posts"/>
 </template>
   
   <style scoped>

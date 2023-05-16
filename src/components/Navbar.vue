@@ -9,6 +9,7 @@ export default {
   methods: {
     logout() {
       this.$store.commit("logout")
+      this.$router.push("/")
     },
   },
   computed: {
@@ -33,26 +34,44 @@ export default {
       <v-btn to="/">
         <v-icon>mdi-home</v-icon>
         <span v-if="lgAndUp" class="ml-1">Home</span>
+        <v-tooltip activator="parent" location="bottom">
+          Home
+        </v-tooltip>
       </v-btn>
       <v-btn>
         <v-icon>mdi-book</v-icon>
         <span v-if="lgAndUp" class="ml-1">Courses</span>
+        <v-tooltip activator="parent" location="bottom">
+          Courses
+        </v-tooltip>
       </v-btn>
       <v-btn>
         <v-icon>mdi-calendar</v-icon>
         <span v-if="lgAndUp" class="ml-1">Events</span>
+        <v-tooltip activator="parent" location="bottom">
+          Events
+        </v-tooltip>
       </v-btn>
       <v-btn v-if="isLoggedIn">
         <v-icon>mdi-calendar-check</v-icon>
         <span v-if="lgAndUp" class="ml-1">My Events</span>
+        <v-tooltip activator="parent" location="bottom">
+          My Events
+        </v-tooltip>
       </v-btn>
       <v-btn v-if="isAdmin" to="/users">
         <v-icon>mdi-account-group</v-icon>
         <span v-if="lgAndUp" class="ml-1">Users</span>
+        <v-tooltip activator="parent" location="bottom">
+          Users
+        </v-tooltip>
       </v-btn>
-      <v-btn v-if="isLoggedIn">
-        <v-icon>mdi-account</v-icon>
-        <span v-if="lgAndUp" class="ml-1">Account</span>
+          <v-btn v-if="isLoggedIn">
+            <v-icon>mdi-account</v-icon>
+            <span v-if="lgAndUp" class="ml-1">Account</span>
+            <v-tooltip activator="parent" location="bottom">
+              {{ this.$store.getters.getMailAddress }}
+            </v-tooltip>
       </v-btn>
       <v-btn color="primary" class="ml-5" rounded="xl" to="/login" v-if="!isLoggedIn">Login</v-btn>
       <v-btn color="primary" class="ml-2" rounded="xl" to="/signup" v-if="!isLoggedIn">Sign Up</v-btn>

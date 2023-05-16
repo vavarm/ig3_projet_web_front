@@ -31,9 +31,11 @@ export default {
         });
             console.log(response);
             localStorage.setItem("token", response.data.token)
+            localStorage.setItem("user_mail_address", response.data.user_mail_address)
             localStorage.setItem("user_admin_level", response.data.user_admin_level)
             this.$store.commit("setToken", response.data.token)
             this.$store.commit("setUserAdminLevel", response.data.user_admin_level)
+            this.$store.commit("setUserMailAddress", response.data.user_mail_address)
             this.$router.push("/");
         } catch (error) {
             console.log(error);
