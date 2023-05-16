@@ -8,11 +8,7 @@ export default {
   name: "Navbar",
   methods: {
     logout() {
-      localStorage.removeItem("token")
-      localStorage.removeItem("user_admin_level")
-      this.$store.commit("clearToken")
-      this.$store.commit("resetUserAdminLevel")
-      this.$router.push("/")
+      this.$store.commit("logout")
     },
   },
   computed: {
@@ -50,7 +46,7 @@ export default {
         <v-icon>mdi-calendar-check</v-icon>
         <span v-if="lgAndUp" class="ml-1">My Events</span>
       </v-btn>
-      <v-btn v-if="isAdmin">
+      <v-btn v-if="isAdmin" to="/users">
         <v-icon>mdi-account-group</v-icon>
         <span v-if="lgAndUp" class="ml-1">Users</span>
       </v-btn>
@@ -58,9 +54,9 @@ export default {
         <v-icon>mdi-account</v-icon>
         <span v-if="lgAndUp" class="ml-1">Account</span>
       </v-btn>
-      <v-btn color="primary" class="ml-5 py-4 px-8" rounded="xl" to="/login" v-if="!isLoggedIn">Login</v-btn>
-      <v-btn color="primary" class="ml-2 py-4 px-8" rounded="xl" to="/signup" v-if="!isLoggedIn">Sign Up</v-btn>
-      <v-btn text color="red" class="ml-5 py-4 px-8" @click="logout" v-if="isLoggedIn">Logout</v-btn>
+      <v-btn color="primary" class="ml-5" rounded="xl" to="/login" v-if="!isLoggedIn">Login</v-btn>
+      <v-btn color="primary" class="ml-2" rounded="xl" to="/signup" v-if="!isLoggedIn">Sign Up</v-btn>
+      <v-btn text color="red" class="ml-5" @click="logout" v-if="isLoggedIn">Logout</v-btn>
     </v-toolbar-items>
   </div>
 </template>

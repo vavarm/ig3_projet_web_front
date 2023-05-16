@@ -5,6 +5,7 @@ import App from "./App.vue"
 import Login from "./views/Login.vue"
 import Signup from "./views/Signup.vue"
 import Home from "./views/Home.vue"
+import Users from "./views/Users.vue"
 import * as VueRouter from "vue-router"
 
 // Vue Router
@@ -12,6 +13,7 @@ const routes = [
   { path: "/", component: Home },
   { path: "/login", component: Login },
   { path: "/signup", component: Signup },
+  { path: "/users", component: Users },
 ]
 
 const router = VueRouter.createRouter({

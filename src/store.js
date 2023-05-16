@@ -17,6 +17,12 @@ export default new Vuex.Store({
     },
     resetUserAdminLevel(state) {
         state.user_admin_level = 0
+    },
+    logout(state) {
+        localStorage.removeItem('token')
+        localStorage.removeItem('user_admin_level')
+        state.token = null
+        state.user_admin_level = 0
     }
   },
   getters: {
