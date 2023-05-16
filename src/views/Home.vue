@@ -5,10 +5,13 @@ import Posts from "./Posts.vue"
 <script>
 export default {
   name: "Home",
+  components: {
+    Posts,
+  },
   data() {
     return{
       title: "Learn'nTeach",
-      description: "A platform for learning and teaching around diverse topics and skills with a community of passionate people."
+      description: "A platform for learning and teaching around diverse topics and skills with a community of passionate people. You can also create your events and participate in others' events in the United States.",
     }
     
   },

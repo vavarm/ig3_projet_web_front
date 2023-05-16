@@ -4,7 +4,8 @@ export default new Vuex.Store({
   state: {
     token: null,
     user_admin_level: 0,
-    user_mail_address: null
+    user_mail_address: null,
+    back_end_uri: import.meta.env.VITE_BACK_END_URI
   },
   mutations: {
     setToken(state, token) {
@@ -37,6 +38,9 @@ export default new Vuex.Store({
     },
     getMailAddress(state) {
       return state.user_mail_address
+    },
+    getBackEndUri(state) {
+      return state.back_end_uri
     }
   }
 });

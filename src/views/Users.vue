@@ -22,7 +22,7 @@ export default {
                 const config = {
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
                 }
-                const response = await axios.get("http://localhost:3002/auth/users", config)
+                const response = await axios.get(this.$store.getters.getBackEndUri + "/auth/users", config)
                 console.log(response)
                 this.users = response.data
             } catch (error) {
@@ -36,7 +36,7 @@ export default {
                 const config = {
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
                 }
-                const response = await axios.delete("http://localhost:3002/auth/users/" + this.current_user, config)
+                const response = await axios.delete(this.$store.getters.getBackEndUri + "/auth/users/" + this.current_user, config)
                 console.log(response)
                 this.getUsers()
             } catch (error) {
@@ -51,7 +51,7 @@ export default {
                 const config = {
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
                 }
-                const response = await axios.put("http://localhost:3002/auth/users/set-admin/", {
+                const response = await axios.put(this.$store.getters.getBackEndUri + "/auth/users/set-admin/", {
                     "mail_address": this.current_user
                 }, config)
                 console.log(response)
@@ -68,7 +68,7 @@ export default {
                 const config = {
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
                 }
-                const response = await axios.put("http://localhost:3002/auth/users/unset-admin/", {
+                const response = await axios.put(this.$store.getters.getBackEndUri + "/auth/users/unset-admin/", {
                     "mail_address": this.current_user
                 }, config)
                 console.log(response)

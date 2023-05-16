@@ -25,7 +25,7 @@ export default {
             return;
         }
         try {
-            const response = await axios.post("http://localhost:3002/auth/login", {
+            const response = await axios.post(this.$store.getters.getBackEndUri + "/auth/login", {
 	            "mail_address": this.email,
 	            "password": this.password
         });

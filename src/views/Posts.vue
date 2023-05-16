@@ -14,7 +14,7 @@ export default {
     methods: {
         getPosts() {
             axios
-                .get("http://localhost:3002/posts")
+                .get(this.$store.getters.getBackEndUri + "/posts")
                 .then((response) => {
                     console.log(response);
                     //arrrange posts by date
@@ -45,10 +45,13 @@ export default {
             <div v-if="error" class="error">{{error}}</div>
             <div v-else-if="posts.length === 0" class="loading">Loading...</div>
             <div v-else v-for="post in posts" :key="post.id" class="d-flex" style="width: 100%" xs12 md6 lg4>
-                <v-card class="ma-4" color="#5A33CE" style="width: 100%">
+                <v-card class="mb-4" color="#5A33CE" style="width: 100%">
                     <v-card-title>
                         {{post.title}}
                     </v-card-title>
+                    <div class="d-flex flex-row" style="width: 100%">
+                        <v-chip color="white" class="ml-2 mb-2" v-for="tag in post.Tags" :key="tag.name">{{tag.name}}</v-chip>
+                    </div>
                     <v-card-subtitle>{{post.author_id + " - " + formatDate(post.createdAt) }}</v-card-subtitle>
                     <v-card-text>{{post.content}}</v-card-text>
                 </v-card>
