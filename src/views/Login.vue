@@ -61,8 +61,9 @@ export default {
         required
         :rules="passwordRules"
     ></v-text-field>
-    <div>
+    <div class="d-flex">
         <v-btn color="primary" type="submit" @click.prevent="login">Login</v-btn>
+        <v-spacer />
         <v-btn color="secondary" to="/signup">I don't have an account</v-btn>
     </div>
     <div v-if="requestError" class="error">
