@@ -45,7 +45,7 @@ export default {
           Courses
         </v-tooltip>
       </v-btn>
-      <v-btn>
+      <v-btn to="/events">
         <v-icon>mdi-calendar</v-icon>
         <span v-if="lgAndUp" class="ml-1">Events</span>
         <v-tooltip activator="parent" location="bottom">

@@ -29,7 +29,7 @@ export default {
 
 <template>
     <Navbar class="navbar" />
-    <router-view class="router-view"></router-view>
+    <router-view></router-view>
 </template>
 
 <style scoped>
@@ -42,7 +42,7 @@ export default {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
 }
-.router-view {
+.home-section {
   flex: 1;
 }
 </style>

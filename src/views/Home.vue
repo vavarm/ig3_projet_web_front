@@ -8,9 +8,6 @@ export default {
   components: {
     Posts,
   },
-  props: {
-    class: String,
-  },
   data() {
     return{
       title: "Learn'nTeach",

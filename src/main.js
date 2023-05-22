@@ -5,6 +5,7 @@ import App from "./App.vue"
 import Login from "./views/Login.vue"
 import Signup from "./views/Signup.vue"
 import Home from "./views/Home.vue"
+import Events from "./views/Events.vue"
 import Users from "./views/Users.vue"
 import * as VueRouter from "vue-router"
 import axios from "axios"
@@ -15,6 +16,7 @@ axios.defaults.withCredentials = true
 // Vue Router
 const routes = [
   { path: "/", component: Home },
+  { path: "/events", component: Events },
   { path: "/login", component: Login },
   { path: "/signup", component: Signup },
   { path: "/users", component: Users },

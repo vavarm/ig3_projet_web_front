@@ -21,8 +21,8 @@ export default {
         this.getTags();
     },
     methods: {
-        getPosts() {
-            axios
+        async getPosts() {
+            await axios
                 .get(this.$store.getters.getBackEndUri + "/posts")
                 .then((response) => {
                     console.log(response);
@@ -37,8 +37,8 @@ export default {
                     this.error = error.response.data.message;
                 });
         },
-        deletePost(postId) {
-            axios
+        async deletePost(postId) {
+            await axios
                 .delete(this.$store.getters.getBackEndUri + "/posts/" + postId)
                 .then((response) => {
                     console.log(response);
@@ -54,8 +54,8 @@ export default {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             return date.toLocaleDateString('en-US', options);
         },
-        getTags() {
-            axios
+        async getTags() {
+            await axios
                 .get(this.$store.getters.getBackEndUri + "/tags")
                 .then((response) => {
                     console.log(response);
@@ -147,7 +147,7 @@ export default {
 
 <template>
     <!--Modal to create a new post-->
-    <v-dialog v-model="dialog" max-width="500px" :fullscreen="$vuetify.display.mdAndDown" hide-overlay transition="dialog-bottom-transition">
+    <v-dialog v-model="dialog" max-width="1000px" :fullscreen="$vuetify.display.smAndDown" hide-overlay transition="dialog-bottom-transition">
         <v-card color="primary">
             <v-card-title>
                 <span class="headline">Create a new post</span>
@@ -182,7 +182,7 @@ export default {
     <div class="ma-4" id="posts">
         <h1>Posts</h1>
         <!--button to open the modal to create a new post-->
-        <v-btn color="primary" class="mb-4" @click="openDialog" >Create a new post</v-btn>
+        <v-btn v-if="this.$store.getters.isLoggedIn" color="primary" class="mb-4" @click="openDialog" >Create a new post</v-btn>
         <!--SearchBar to filter the posts by tag (the tags are displayed as chips)-->
         <v-select
             v-model="search"
