@@ -52,7 +52,7 @@ export default {
         </v-btn>
       </div>
     </div>
-    <Posts id="posts"/>
+    <Posts/>
 </template>
   
   <style scoped>

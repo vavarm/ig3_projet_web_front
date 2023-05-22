@@ -2,9 +2,6 @@
 import axios from "axios";
 export default {
     name: "Posts",
-    props: {
-        id: String,
-    },
     data() {
         return {
             posts: [],
@@ -75,14 +72,11 @@ export default {
                 return;
             }
             try {
-                const config = {
-                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-                }
                 const response = await axios.post(this.$store.getters.getBackEndUri + "/posts", {
                     "title": this.title,
                     "content": this.content,
                     "tags": this.selectedTags,
-                }, config)
+                })
                 console.log(response)
                 this.getPosts()
                 this.closeDialog()
@@ -103,12 +97,9 @@ export default {
                 return;
             }
             try {
-                const config = {
-                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-                }
                 const response = await axios.post(this.$store.getters.getBackEndUri + "/tags", {
                     "name": this.newTag,
-                }, config)
+                })
                 console.log(response)
                 this.getTags()
                 this.newTag = ""
@@ -170,7 +161,7 @@ export default {
         </v-card>
     </v-dialog>
 
-    <div class="ma-4">
+    <div class="ma-4" id="posts">
         <h1>Posts</h1>
         <!--button to open the modal to create a new post-->
         <v-btn color="primary" class="mb-4" @click="openDialog" >Create a new post</v-btn>

@@ -9,13 +9,19 @@ export default {
     Navbar,
   },
   created() {
-    const token = localStorage.getItem("token");
-    const userAdminLevel = localStorage.getItem("user_admin_level");
-    if (token) {
-      this.$store.commit('setToken', token)
+    // get user info from cookies
+    const cookies = document.cookie.split(";")
+    let user_mail_address = ""
+    let user_admin_level = ""
+    user_mail_address = cookies.find((cookie) => cookie.includes("user_mail_address"))
+    user_admin_level = cookies.find((cookie) => cookie.includes("user_admin_level"))
+    if (user_mail_address) {
+      user_mail_address = user_mail_address.split("=")[1]
+      this.$store.commit("setUserMailAddress", user_mail_address)
     }
-    if (userAdminLevel) {
-      this.$store.commit('setUserAdminLevel', userAdminLevel)
+    if (user_admin_level) {
+      user_admin_level = user_admin_level.split("=")[1]
+      this.$store.commit("setUserAdminLevel", user_admin_level)
     }
   },
 }

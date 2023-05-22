@@ -7,6 +7,10 @@ import Signup from "./views/Signup.vue"
 import Home from "./views/Home.vue"
 import Users from "./views/Users.vue"
 import * as VueRouter from "vue-router"
+import axios from "axios"
+
+// Axios
+axios.defaults.withCredentials = true
 
 // Vue Router
 const routes = [

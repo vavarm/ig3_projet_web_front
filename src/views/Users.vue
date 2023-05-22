@@ -19,10 +19,7 @@ export default {
     methods: {
         async getUsers() {
             try {
-                const config = {
-                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-                }
-                const response = await axios.get(this.$store.getters.getBackEndUri + "/auth/users", config)
+                const response = await axios.get(this.$store.getters.getBackEndUri + "/auth/users")
                 console.log(response)
                 this.users = response.data
             } catch (error) {
@@ -33,10 +30,7 @@ export default {
         },
         async deleteUser() {
             try {
-                const config = {
-                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-                }
-                const response = await axios.delete(this.$store.getters.getBackEndUri + "/auth/users/" + this.current_user, config)
+                const response = await axios.delete(this.$store.getters.getBackEndUri + "/auth/users/" + this.current_user)
                 console.log(response)
                 this.getUsers()
             } catch (error) {
@@ -48,12 +42,9 @@ export default {
         },
         async setAdmin() {
             try {
-                const config = {
-                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-                }
                 const response = await axios.put(this.$store.getters.getBackEndUri + "/auth/users/set-admin/", {
                     "mail_address": this.current_user
-                }, config)
+                })
                 console.log(response)
                 this.getUsers()
                 this.setAdminDialog = false
@@ -65,12 +56,9 @@ export default {
         },
         async unsetAdmin() {
             try {
-                const config = {
-                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-                }
                 const response = await axios.put(this.$store.getters.getBackEndUri + "/auth/users/unset-admin/", {
                     "mail_address": this.current_user
-                }, config)
+                })
                 console.log(response)
                 this.getUsers()
                 this.unsetAdminDialog = false
