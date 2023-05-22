@@ -18,6 +18,7 @@ export default {
     },
     created() {
         this.getPosts();
+        this.getTags();
     },
     methods: {
         getPosts() {
@@ -30,6 +31,18 @@ export default {
                         return new Date(b.createdAt) - new Date(a.createdAt);
                     });
                     this.posts = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                    this.error = error.response.data.message;
+                });
+        },
+        deletePost(postId) {
+            axios
+                .delete(this.$store.getters.getBackEndUri + "/posts/" + postId)
+                .then((response) => {
+                    console.log(response);
+                    this.getPosts();
                 })
                 .catch((error) => {
                     console.log(error);
@@ -109,11 +122,11 @@ export default {
                 this.$store.commit("logout")
                 this.$router.push("/login")
             }
-        },
+        }
     },
     computed: {
         filteredPosts() {
-            if (!this.search) {
+            if (!this.search || this.search === 'ALL') {
                 return this.posts;
             }
             return this.posts.filter((post) => {
@@ -121,6 +134,11 @@ export default {
                     return tag.name.toLowerCase().includes(this.search.toLowerCase());
                 });
             });
+        },
+        selectTags() {
+            const items = [...this.existingTags]
+            items.unshift('ALL')
+            return items
         },
     },
 }
@@ -165,15 +183,17 @@ export default {
         <h1>Posts</h1>
         <!--button to open the modal to create a new post-->
         <v-btn color="primary" class="mb-4" @click="openDialog" >Create a new post</v-btn>
-        <!--SearchBar to filter the posts by tag-->
-        <v-text-field
+        <!--SearchBar to filter the posts by tag (the tags are displayed as chips)-->
+        <v-select
             v-model="search"
-            append-icon="mdi-magnify"
+            :items="selectTags"
+            item-text="name"
+            item-value="name"
             label="Search by tag"
-            class="mb-4"
-            single-line
-            hide-details
-        ></v-text-field>
+            chips
+            small-chips
+            deletable-chips
+        ></v-select>
         <div>
             <div v-if="error" class="error">{{error}}</div>
             <div v-else-if="posts.length === 0" class="loading">Loading...</div>
@@ -187,6 +207,10 @@ export default {
                     </div>
                     <v-card-subtitle>{{post.author_id + " - " + formatDate(post.createdAt) }}</v-card-subtitle>
                     <v-card-text>{{post.content}}</v-card-text>
+                    <v-card-actions v-if="(this.$store.getters.getMailAddress === post.author_id) || this.$store.getters.isAdmin">
+                        <v-spacer></v-spacer>
+                        <v-btn color="red darken-1" text @click="deletePost(post.id)">Delete</v-btn>
+                    </v-card-actions>
                 </v-card>
             </div>
         </div>
