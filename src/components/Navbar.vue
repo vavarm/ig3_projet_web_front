@@ -45,7 +45,7 @@ export default {
           Courses
         </v-tooltip>
       </v-btn>
-      <v-btn to="/events">
+      <v-btn v-if="isLoggedIn" to="/events">
         <v-icon>mdi-calendar</v-icon>
         <span v-if="lgAndUp" class="ml-1">Events</span>
         <v-tooltip activator="parent" location="bottom">
@@ -66,12 +66,12 @@ export default {
           Users
         </v-tooltip>
       </v-btn>
-          <v-btn v-if="isLoggedIn">
-            <v-icon>mdi-account</v-icon>
-            <span v-if="lgAndUp" class="ml-1">Account</span>
-            <v-tooltip activator="parent" location="bottom">
-              {{ this.$store.getters.getMailAddress }}
-            </v-tooltip>
+        <v-btn v-if="isLoggedIn">
+        <v-icon>mdi-account</v-icon>
+        <span v-if="lgAndUp" class="ml-1">Account</span>
+        <v-tooltip activator="parent" location="bottom">
+          {{ this.$store.getters.getMailAddress }}
+        </v-tooltip>
       </v-btn>
       <v-btn color="primary" class="ml-5" rounded="xl" to="/login" v-if="!isLoggedIn">Login</v-btn>
       <v-btn color="primary" class="ml-2" rounded="xl" to="/signup" v-if="!isLoggedIn">Sign Up</v-btn>
