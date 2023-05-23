@@ -26,7 +26,7 @@ export default {
 <template>
   <div class="navbar">
     <v-toolbar-title class="ml-2">
-      <v-icon>mdi-vuetify</v-icon>
+      <v-icon class="mr-2">mdi-school</v-icon>
       <span v-if="lgAndUp">Learn'nTeach</span>
     </v-toolbar-title>
     <v-spacer />
