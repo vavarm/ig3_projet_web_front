@@ -173,8 +173,8 @@ export default {
                 </v-form>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDialog">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="createPost">Save</v-btn>
+                <v-btn color="orange darken-1" text @click="closeDialog" variant="flat">Cancel</v-btn>
+                <v-btn color="blue darken-1" text @click="createPost" variant="flat">Save</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -195,8 +195,7 @@ export default {
             deletable-chips
         ></v-select>
         <div>
-            <div v-if="error" class="error">{{error}}</div>
-            <div v-else-if="posts.length === 0" class="loading">Loading...</div>
+            <div v-if="posts.length === 0" class="loading">Loading...</div>
             <div v-else v-for="post in filteredPosts" :key="post.id" class="d-flex" style="width: 100%" xs12 md6 lg4>
                 <v-card class="mb-4" color="#5A33CE" style="width: 100%">
                     <v-card-title>
@@ -209,7 +208,10 @@ export default {
                     <v-card-text>{{post.content}}</v-card-text>
                     <v-card-actions v-if="(this.$store.getters.getMailAddress === post.author_id) || this.$store.getters.isAdmin">
                         <v-spacer></v-spacer>
-                        <v-btn color="red darken-1" text @click="deletePost(post.id)">Delete</v-btn>
+                        <v-btn color="red darken-1" @click="deletePost(post.id)" variant="flat">
+                            <v-icon>mdi-delete</v-icon>
+                            Delete
+                        </v-btn>
                     </v-card-actions>
                 </v-card>
             </div>

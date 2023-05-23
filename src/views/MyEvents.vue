@@ -141,8 +141,8 @@ export default {
             <v-card-text>Are you sure you want to delete this event?</v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDeleteDialog">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="deleteEvent(eventId)">Delete</v-btn>
+                <v-btn color="orange darken-1" text @click="closeDeleteDialog" variant="flat">Cancel</v-btn>
+                <v-btn color="red darken-1" text @click="deleteEvent(eventId)" variant="flat">Delete</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -167,7 +167,10 @@ export default {
                     <v-card-subtitle>{{ "Organizer: " + event.organizer_id }}</v-card-subtitle>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="red darken-1" @click.stop="openDeleteDialog(event.id)">Delete</v-btn>
+                    <v-btn color="red darken-1" @click.stop="openDeleteDialog(event.id)" variant="flat">
+                        <v-icon>mdi-delete</v-icon>
+                        Delete
+                    </v-btn>
                 </v-card-actions>
             </v-card>
         </div>
@@ -190,7 +193,10 @@ export default {
                     <v-card-subtitle>{{ "Organizer: " + event.organizer_id }}</v-card-subtitle>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="orange darken-1" @click.stop="unregisterEvent(event.id)">Unregister</v-btn>
+                    <v-btn color="orange darken-1" @click.stop="unregisterEvent(event.id)" variant="flat">
+                        <v-icon>mdi-account-minus</v-icon>
+                        Unregister
+                    </v-btn>
                 </v-card-actions>
             </v-card>
         </div>

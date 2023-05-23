@@ -256,8 +256,8 @@ export default{
                 </v-form>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDialog">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="createEvent">Save</v-btn>
+                <v-btn color="orange darken-1" text @click="closeDialog" variant="flat">Cancel</v-btn>
+                <v-btn color="blue darken-1" text @click="createEvent" variant="flat">Save</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -269,20 +269,20 @@ export default{
             </v-card-title>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red darken-1" text @click="deleteDialog = false">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="deleteEvent(currentEventId)">Delete</v-btn>
+                <v-btn color="orange darken-1" text @click="deleteDialog = false" variant="flat">Cancel</v-btn>
+                <v-btn color="red darken-1" text @click="deleteEvent(currentEventId)" variant="flat">Delete</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
 
     <v-dialog v-model="eventFullDialog" max-width="600px" hide-overlay transition="dialog-bottom-transition">
-        <v-card color="primary">
+        <v-card color="primary" class="d-flex justify-center align-center">
             <v-card-title>
                 <span class="headline"> The event is full </span>
             </v-card-title>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="eventFullDialog = false">Ok</v-btn>
+                <v-btn color="blue darken-1" text @click="eventFullDialog = false" variant="flat">Ok</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -303,8 +303,7 @@ export default{
             deletable-chips
         ></v-select>
         <div>
-            <div v-if="error" class="error">{{error}}</div>
-            <div v-else-if="events.length === 0" class="loading">Loading...</div>
+            <div v-if="events.length === 0" class="loading">Loading...</div>
             <div v-for="event in filteredEvents" :key="event.id" class="d-flex" style="width: 100%" xs12 md6 lg4>
                 <v-card class="mb-4" color="#5A33CE" style="width: 100%" @click="this.$router.push({ path: '/event/' + event.id })">
                     <v-card-title>
@@ -320,9 +319,18 @@ export default{
                     <v-card-subtitle>{{ "Organizer: " + event.organizer_id }}</v-card-subtitle>
                     <v-card-actions v-if="this.$store.getters.isLoggedIn">
                         <v-spacer></v-spacer>
-                        <v-btn v-if="!this.registeredEventsIds.includes(event.id) && !(this.$store.getters.getMailAddress === event.organizer_id)" color="blue darken-1" text @click.stop="registerToEvent(event.id)">Register</v-btn>
-                        <v-btn v-else-if="this.registeredEventsIds.includes(event.id) && !(this.$store.getters.getMailAddress === event.organizer_id)" color="orange darken-1" text @click.stop="unregisterToEvent(event.id)">Unregister</v-btn>
-                        <v-btn v-if="(this.$store.getters.getMailAddress === event.organizer_id) || this.$store.getters.isAdmin" color="red darken-1" text @click.stop="openDeleteDialog(event.id)">Delete</v-btn>
+                        <v-btn v-if="!this.registeredEventsIds.includes(event.id) && !(this.$store.getters.getMailAddress === event.organizer_id)" color="blue darken-1" @click.stop="registerToEvent(event.id)" variant="flat">
+                            <v-icon>mdi-account-plus</v-icon>
+                            Register
+                        </v-btn>
+                        <v-btn v-else-if="this.registeredEventsIds.includes(event.id) && !(this.$store.getters.getMailAddress === event.organizer_id)" color="orange darken-1" @click.stop="unregisterToEvent(event.id)" variant="flat">
+                            <v-icon>mdi-account-minus</v-icon>
+                            Unregister
+                        </v-btn>
+                        <v-btn v-if="(this.$store.getters.getMailAddress === event.organizer_id) || this.$store.getters.isAdmin" color="red darken-1" @click.stop="openDeleteDialog(event.id)" variant="flat">
+                            <v-icon>mdi-delete</v-icon>
+                            Delete
+                        </v-btn>
                     </v-card-actions>
                 </v-card>
             </div>

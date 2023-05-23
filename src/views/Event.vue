@@ -136,13 +136,13 @@ export default {
 <!--Create a v-card to display all the infos of the event and to display "NumberOfParticipants/NumberOfParticipantsMax"-->
 <template>
     <v-dialog v-model="eventFullDialog" max-width="600px" hide-overlay transition="dialog-bottom-transition">
-        <v-card color="primary">
+        <v-card color="primary" class="d-flex flex-column align-center">
             <v-card-title>
                 <span class="headline"> The event is full </span>
             </v-card-title>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="eventFullDialog = false">Ok</v-btn>
+                <v-btn color="blue darken-1" text @click="eventFullDialog = false" variant="flat">Ok</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -154,15 +154,15 @@ export default {
             </v-card-title>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red darken-1" text @click="deleteDialog = false">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="deleteEvent(currentEventId)">Delete</v-btn>
+                <v-btn color="orange darken-1" text @click="deleteDialog = false" variant="flat">Cancel</v-btn>
+                <v-btn color="red darken-1" text @click="deleteEvent(currentEventId)" variant="flat">Delete</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
 
-    <v-card class="d-flex flex-column align-center ma-10 pa-4">
+    <v-card class="d-flex flex-column align-center ma-10 pa-4" color="grey">
         <v-card-title class="event-title">{{event.name}}</v-card-title>
-        <div class="d-flex flex-row" style="width: 100%">
+        <div class="d-flex flex-row">
             <v-chip color="white" class="ml-2 mb-2" v-for="tag in event.Tags" :key="tag.name">{{tag.name}}</v-chip>
         </div>
         <v-card-text>
@@ -176,9 +176,18 @@ export default {
             <p>Participants: {{ this.numberOfParticipants }} / {{ event.max_participants }}</p>
         </v-card-text>
         <v-card-actions>
-            <v-btn v-if="!this.registeredEventsIds.includes(event.id) && !(this.$store.getters.getMailAddress === event.organizer_id)" color="blue darken-1" text @click="registerToEvent(event.id)">Register</v-btn>
-                        <v-btn v-else-if="this.registeredEventsIds.includes(event.id) && !(this.$store.getters.getMailAddress === event.organizer_id)" color="orange darken-1" text @click="unregisterToEvent(event.id)">Unregister</v-btn>
-                        <v-btn v-if="(this.$store.getters.getMailAddress === event.organizer_id) || this.$store.getters.isAdmin" color="red darken-1" text @click="openDeleteDialog()">Delete</v-btn>
+            <v-btn v-if="!this.registeredEventsIds.includes(event.id) && !(this.$store.getters.getMailAddress === event.organizer_id)" color="blue darken-1" @click="registerToEvent(event.id)" variant="flat">
+                <v-icon>mdi-account-plus</v-icon>
+                Register
+            </v-btn>
+            <v-btn v-else-if="this.registeredEventsIds.includes(event.id) && !(this.$store.getters.getMailAddress === event.organizer_id)" color="orange darken-1" @click="unregisterToEvent(event.id)" variant="flat">
+                <v-icon>mdi-account-minus</v-icon>
+                    Unregister
+            </v-btn>
+            <v-btn v-if="(this.$store.getters.getMailAddress === event.organizer_id) || this.$store.getters.isAdmin" color="red darken-1" @click="openDeleteDialog()" variant="flat">
+                <v-icon>mdi-delete</v-icon>
+                    Delete
+            </v-btn>
         </v-card-actions>
     </v-card>
 </template>
@@ -190,5 +199,6 @@ export default {
         background-color: darkgray;
         color: white;
         border-radius: 50px;
+        margin-bottom: 10px;
     }
 </style>
