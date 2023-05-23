@@ -60,6 +60,8 @@ export default{
                 .catch((error) => {
                     console.log(error)
                     this.error = error.response.data.message
+                    this.$store.commit("logout")
+                    this.$router.push("/login")
                 })
         },
         async getTags() {
@@ -87,6 +89,8 @@ export default{
                 .catch((error) => {
                     console.log(error)
                     this.error = error.response.data.message
+                    this.$store.commit("logout")
+                    this.$router.push("/login")
                 })
         },
         formatDate(dateString){
@@ -132,6 +136,8 @@ export default{
                 .catch((error) => {
                     console.log(error)
                     this.errorDialog = error.response.data.message
+                    this.$store.commit("logout")
+                    this.$router.push("/login")
                 })
         },
         async createTag(){
@@ -147,6 +153,8 @@ export default{
                 .catch((error) => {
                     console.log(error)
                     this.errorDialog = error.response.data.message
+                    this.$store.commit("logout")
+                    this.$router.push("/login")
                 })
         },
         async registerToEvent(eventId){
@@ -163,6 +171,8 @@ export default{
                     }
                     console.log(error)
                     this.error = error.response.data.message
+                    this.$store.commit("logout")
+                    this.$router.push("/login")
                 })
         },
         async unregisterToEvent(eventId){
@@ -175,6 +185,8 @@ export default{
                 .catch((error) => {
                     console.log(error)
                     this.error = error.response.data.message
+                    this.$store.commit("logout")
+                    this.$router.push("/login")
                 })
         },
     },
