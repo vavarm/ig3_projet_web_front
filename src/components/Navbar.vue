@@ -66,7 +66,7 @@ export default {
           Users
         </v-tooltip>
       </v-btn>
-        <v-btn v-if="isLoggedIn">
+        <v-btn v-if="isLoggedIn" to="/account">
         <v-icon>mdi-account</v-icon>
         <span v-if="lgAndUp" class="ml-1">Account</span>
         <v-tooltip activator="parent" location="bottom">

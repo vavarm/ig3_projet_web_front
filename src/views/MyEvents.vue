@@ -149,10 +149,7 @@ export default {
 
     <div class="ma-4">
         <h1>Own Events</h1>
-        <div v-if="error" class="error">
-            {{error}}
-        </div>
-        <div v-else-if="ownEvents.length === 0">
+        <div v-if="ownEvents.length === 0">
             <h3>You have no owned events</h3>
         </div>
         <div v-else v-for="event in ownEvents" :key="event.id">
@@ -169,15 +166,13 @@ export default {
                     <v-card-subtitle v-else>{{"Price: Free"}}</v-card-subtitle>
                     <v-card-subtitle>{{ "Organizer: " + event.organizer_id }}</v-card-subtitle>
                 <v-card-actions>
+                    <v-spacer></v-spacer>
                     <v-btn color="red darken-1" @click.stop="openDeleteDialog(event.id)">Delete</v-btn>
                 </v-card-actions>
             </v-card>
         </div>
         <h1>Registered Events</h1>
-        <div v-if="error" class="error">
-            {{error}}
-        </div>
-        <div v-else-if="registeredEvents.length === 0">
+        <div v-if="registeredEvents.length === 0">
             <h3>You have no registered events</h3>
         </div>
         <div v-else v-for="event in registeredEvents" :key="event.id">
@@ -194,6 +189,7 @@ export default {
                     <v-card-subtitle v-else>{{"Price: Free"}}</v-card-subtitle>
                     <v-card-subtitle>{{ "Organizer: " + event.organizer_id }}</v-card-subtitle>
                 <v-card-actions>
+                    <v-spacer></v-spacer>
                     <v-btn color="orange darken-1" @click.stop="unregisterEvent(event.id)">Unregister</v-btn>
                 </v-card-actions>
             </v-card>
