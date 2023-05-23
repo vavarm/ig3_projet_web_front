@@ -52,7 +52,7 @@ export default {
           Events
         </v-tooltip>
       </v-btn>
-      <v-btn v-if="isLoggedIn">
+      <v-btn v-if="isLoggedIn" to="/myevents">
         <v-icon>mdi-calendar-check</v-icon>
         <span v-if="lgAndUp" class="ml-1">My Events</span>
         <v-tooltip activator="parent" location="bottom">

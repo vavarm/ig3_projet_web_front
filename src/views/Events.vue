@@ -4,9 +4,11 @@ export default{
     name: "Events",
     data() {
         return {
+            currentEventId: -1,
             events: [],
             registeredEventsIds: [],
             eventFullDialog: false,
+            deleteDialog: false,
             error: "",
             errorDialog: "",
             search: "",
@@ -85,6 +87,7 @@ export default{
                 .then((response) => {
                     console.log(response)
                     this.getEvents()
+                    this.deleteDialog = false
                 })
                 .catch((error) => {
                     console.log(error)
@@ -113,6 +116,14 @@ export default{
             this.price = 0
             this.max_participants = 0
             this.selectedTags = []
+        },
+        openDeleteDialog(eventId){
+            this.deleteDialog = true
+            this.currentEventId = eventId
+        },
+        closeDeleteDialog(){
+            this.deleteDialog = false
+            this.currentEventId = -1
         },
         async createEvent(){
             await axios
@@ -168,6 +179,7 @@ export default{
                     if(error.response.status === 409){
                         this.error = "The event is full"
                         this.eventFullDialog = true
+                        return
                     }
                     console.log(error)
                     this.error = error.response.data.message
@@ -250,6 +262,19 @@ export default{
         </v-card>
     </v-dialog>
 
+    <v-dialog v-model="deleteDialog" max-width="600px" hide-overlay transition="dialog-bottom-transition">
+        <v-card color="primary">
+            <v-card-title>
+                <span class="headline">Are you sure you want to delete this event ?</span>
+            </v-card-title>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="red darken-1" text @click="deleteDialog = false">Cancel</v-btn>
+                <v-btn color="blue darken-1" text @click="deleteEvent(currentEventId)">Delete</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+
     <v-dialog v-model="eventFullDialog" max-width="600px" hide-overlay transition="dialog-bottom-transition">
         <v-card color="primary">
             <v-card-title>
@@ -281,7 +306,7 @@ export default{
             <div v-if="error" class="error">{{error}}</div>
             <div v-else-if="events.length === 0" class="loading">Loading...</div>
             <div v-for="event in filteredEvents" :key="event.id" class="d-flex" style="width: 100%" xs12 md6 lg4>
-                <v-card class="mb-4" color="#5A33CE" style="width: 100%">
+                <v-card class="mb-4" color="#5A33CE" style="width: 100%" @click="this.$router.push({ path: '/event/' + event.id })">
                     <v-card-title>
                         {{event.name}}
                     </v-card-title>
@@ -295,9 +320,9 @@ export default{
                     <v-card-subtitle>{{ "Organizer: " + event.organizer_id }}</v-card-subtitle>
                     <v-card-actions v-if="this.$store.getters.isLoggedIn">
                         <v-spacer></v-spacer>
-                        <v-btn v-if="!this.registeredEventsIds.includes(event.id) && !(this.$store.getters.getMailAddress === event.organizer_id)" color="blue darken-1" text @click="registerToEvent(event.id)">Register</v-btn>
-                        <v-btn v-else-if="this.registeredEventsIds.includes(event.id) && !(this.$store.getters.getMailAddress === event.organizer_id)" color="orange darken-1" text @click="unregisterToEvent(event.id)">Unregister</v-btn>
-                        <v-btn v-if="(this.$store.getters.getMailAddress === event.organizer_id) || this.$store.getters.isAdmin" color="red darken-1" text @click="deleteEvent(event.id)">Delete</v-btn>
+                        <v-btn v-if="!this.registeredEventsIds.includes(event.id) && !(this.$store.getters.getMailAddress === event.organizer_id)" color="blue darken-1" text @click.stop="registerToEvent(event.id)">Register</v-btn>
+                        <v-btn v-else-if="this.registeredEventsIds.includes(event.id) && !(this.$store.getters.getMailAddress === event.organizer_id)" color="orange darken-1" text @click.stop="unregisterToEvent(event.id)">Unregister</v-btn>
+                        <v-btn v-if="(this.$store.getters.getMailAddress === event.organizer_id) || this.$store.getters.isAdmin" color="red darken-1" text @click.stop="openDeleteDialog(event.id)">Delete</v-btn>
                     </v-card-actions>
                 </v-card>
             </div>
