@@ -21,7 +21,20 @@ export default {
             try {
                 const response = await axios.get(this.$store.getters.getBackEndUri + "/auth/users")
                 console.log(response)
-                this.users = response.data
+                // arrange: admin first, and alphabetical order
+                let admins = response.data.filter((user) => {
+                    return user.admin_level > 0
+                })
+                let users = response.data.filter((user) => {
+                    return user.admin_level == 0
+                })
+                admins.sort((a, b) => {
+                    return a.mail_address.localeCompare(b.mail_address)
+                })
+                users.sort((a, b) => {
+                    return a.mail_address.localeCompare(b.mail_address)
+                })
+                this.users = admins.concat(users)
             } catch (error) {
                 console.log(error);
                 this.$store.commit("logout")

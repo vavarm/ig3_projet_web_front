@@ -169,11 +169,12 @@ export default {
             <p>{{ event.description }}</p>
         </v-card-text>
         <v-card-text>
-            <p>Date: {{ formatDate(event.date) }}</p>
-            <p>Duration: {{ event.duration }}</p>
-            <p>Price: {{ event.price }} USD</p>
-            <p>Address: {{ event.location }}, {{ event.postal_code }} {{ event.city }}</p>
-            <p>Participants: {{ this.numberOfParticipants }} / {{ event.max_participants }}</p>
+            <v-row><v-icon>mdi-calendar</v-icon><p> Date: {{ formatDate(event.date) }}</p></v-row>
+            <v-row><v-icon>mdi-clock</v-icon><p> Duration: {{ event.duration }}</p></v-row>
+            <v-row><v-icon>mdi-map-marker</v-icon><p> Address: {{ event.location }}, {{ event.postal_code }} {{ event.city }}</p></v-row>
+            <v-row><v-icon>mdi-account-tie</v-icon><p> Organizer: {{ event.organizer_id }}</p></v-row>
+            <v-row><v-icon>mdi-ticket-outline</v-icon><p> Price: {{ event.price }} USD</p></v-row>
+            <v-row><v-icon>mdi-account-group</v-icon><p> Participants: {{ this.numberOfParticipants }} / {{ event.max_participants }}</p></v-row>
         </v-card-text>
         <v-card-actions>
             <v-btn v-if="!this.registeredEventsIds.includes(event.id) && !(this.$store.getters.getMailAddress === event.organizer_id)" color="blue darken-1" @click="registerToEvent(event.id)" variant="flat">

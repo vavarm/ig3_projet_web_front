@@ -7,6 +7,7 @@ export default {
         return {
             lessons: [],
             error: "",
+            dialogError: "",
             openDialog: false,
             name: "",
             description: "",
@@ -42,12 +43,23 @@ export default {
         },
         async createLesson(){
             if (this.name === ""){
+                this.dialogError = "Name cannot be empty"
                 return
             }
             if (this.description === ""){
+                this.dialogError = "Description cannot be empty"
                 return
             }
             if (this.selectedFile === null){
+                this.dialogError = "File cannot be empty"
+                return
+            }
+            if (this.name.length > 40){
+                this.dialogError = "Name must be less than 20 characters"
+                return
+            }
+            if (this.description.length > 100){
+                this.dialogError = "Description must be less than 100 characters"
                 return
             }
             const formData = new FormData()
@@ -133,6 +145,11 @@ export default {
             this.selectedFile = null
             this.selectedTags = []
         },
+        formatDate(dateString){
+            const date = new Date(dateString)
+            const options = { year: 'numeric', month: 'long', day: 'numeric' }
+            return date.toLocaleDateString('en-US', options)
+        },
     },
     computed: {
         filteredLessons() {
@@ -156,20 +173,21 @@ export default {
 
 <template>
     <v-dialog v-model="openDialog" max-width="1000px" :fullscreen="$vuetify.display.smAndDown" hide-overlay transition="dialog-bottom-transition">
-        <v-card color="primary">
+        <v-card color="primary" class="pa-10">
             <v-card-title>
                 <span class="headline">Create a new lesson</span>
             </v-card-title>
+            <span v-if="errorDialog !== ''" class="error">{{ dialogError }}</span>
             <v-form ref="form">
                 <v-text-field
                     v-model="name"
                     label="Name"
-                    :rules="[v => !!v || 'Name is required']"
+                    :rules="[v => !!v || 'Name is required', v => v.length <= 40 || 'Name must be less than 40 characters']"
                 ></v-text-field>
                 <v-textarea
                     v-model="description"
                     label="Description"
-                    :rules="[v => !!v || 'Description is required']"
+                    :rules="[v => !!v || 'Description is required', v => v.length <= 100 || 'Description must be less than 100 characters']"
                 ></v-textarea>
                 <v-file-input label="File input" v-model="selectedFile" accept="application/pdf"></v-file-input>
                 <v-select
@@ -228,6 +246,10 @@ export default {
                     <div class="d-flex flex-row" style="width: 100%">
                         <v-chip color="white" class="ml-2 mb-2" v-for="tag in lesson.Tags" :key="tag.name">{{tag.name}}</v-chip>
                     </div>
+                    <v-card-subtitle>
+                        <h3>Uploaded by {{ lesson.author_id }}</h3>
+                        <h5>{{ formatDate(lesson.createdAt) }}</h5>
+                    </v-card-subtitle>
                     <v-card-text>
                         <p>{{ lesson.description }}</p>
                     </v-card-text>

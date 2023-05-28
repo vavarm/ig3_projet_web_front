@@ -58,7 +58,7 @@ export default {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             return date.toLocaleDateString('en-US', options);
         },
-        downloadPdf() {
+        openPdf() {
             window.open(this.documentUrl, '_blank');
         }
     }
@@ -82,20 +82,27 @@ export default {
         </v-card>
     </v-dialog>
 
-    <div class="d-flex flex-column align-center justify-space-between pa-4 page-section">
-        <div>
-            <div class="lesson-title">{{lesson.name}}</div>
-        <div class="d-flex flex-row justify-center">
+    <div class="d-flex flex-column align-start justify-space-between pa-4 page-section">
+        <div style="width: 100%">
+            <div class="d-flex flex-md-row flex-column justify-space-between align-center" style="width: 100%">
+                <div>
+                    <h1 class="lesson-title">{{lesson.name}}</h1>
+                    <h3 class="lesson-description">{{ lesson.description }}</h3>
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-row"><v-icon>mdi-calendar</v-icon><p> Date of creation: {{ formatDate(lesson.createdAt) }}</p></div>
+                    <div class="d-flex flex-row"><v-icon>mdi-pen</v-icon><p> Author: {{ lesson.author_id }}</p></div>
+                </div>
+            </div>
+            <div class="d-flex flex-row justify-center">
             <v-chip class="ml-2 mb-2" v-for="tag in lesson.Tags" :key="tag.name">{{tag.name}}</v-chip>
-        </div>
-        <p>Description: {{ lesson.description }}</p>
-        <p>Date of creation: {{ formatDate(lesson.createdAt) }}</p>
+            </div>
         </div>
         <div class="pdf-container"><iframe width="100%" height="100%" :src="`${this.documentUrl}`"></iframe></div>
         <div class="d-flex flex-row justify-space-between" style="width: 100%">
-            <v-btn @click="downloadPdf()" color="primary" variant="flat">
-                <v-icon>mdi-download</v-icon>
-                Download
+            <v-btn @click="openPdf()" color="primary" variant="flat">
+                <v-icon>mdi-open-in-new</v-icon>
+                Open In New Tab
             </v-btn>
             <v-btn v-if="(this.$store.getters.getMailAddress === lesson.author_id) || this.$store.getters.isAdmin" color="red darken-1" @click="openDeleteDialog()" variant="flat">
                 <v-icon>mdi-delete</v-icon>
@@ -107,13 +114,10 @@ export default {
 
 <style scoped>
     .lesson-title {
-        font-size: 30px;
         font-weight: bold;
-        background-color: darkgray;
-        color: white;
-        border-radius: 50px;
-        margin-bottom: 10px;
-        padding: 20px;
+        text-align: center;
+    }
+    .lesson-description {
         text-align: center;
     }
     .page-section {

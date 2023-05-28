@@ -112,9 +112,6 @@ export default{
             </v-card-text>
         </v-card>
         <v-card>
-            <v-card-title>
-                <h2>Delete account</h2>
-            </v-card-title>
             <v-card-text>
                 <v-btn color="red darken-1" @click="deleteDialog = true" variant="flat">Delete account</v-btn>
             </v-card-text>
