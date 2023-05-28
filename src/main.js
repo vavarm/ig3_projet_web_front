@@ -9,6 +9,7 @@ import Events from "./views/Events.vue"
 import MyEvents from "./views/MyEvents.vue"
 import Event from "./views/Event.vue"
 import Lessons from "./views/Lessons.vue"
+import Lesson from "./views/Lesson.vue"
 import Users from "./views/Users.vue"
 import Account from "./views/Account.vue"
 import * as VueRouter from "vue-router"
@@ -24,6 +25,7 @@ const routes = [
   { path: "/myevents", component: MyEvents },
   { path: "/event/:id", component: Event },
   { path: "/lessons", component: Lessons },
+  { path: "/lesson/:id", component: Lesson },
   { path: "/login", component: Login },
   { path: "/signup", component: Signup },
   { path: "/users", component: Users },

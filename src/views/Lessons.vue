@@ -221,7 +221,7 @@ export default {
                 <h2>No lessons found</h2>
             </div>
             <div v-for="lesson in filteredLessons" :key="lesson.id">
-                <v-card class="mb-4" color="#5A33CE" style="width: 100%">
+                <v-card class="mb-4" color="#5A33CE" style="width: 100%" @click="this.$router.push({ path: '/lesson/' + lesson.id })">
                     <v-card-title>
                         <h2>{{ lesson.name }}</h2>
                     </v-card-title>
