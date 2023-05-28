@@ -1,5 +1,5 @@
 <script>
-import axios from "axios";
+import axios from "axios"
 
 export default {
   name: "LoginForm",
@@ -16,20 +16,21 @@ export default {
             (v) => !!v || "Password is required",
             (v) => v.length >= 2 || "Password must be at least 2 characters",
         ],
-    };
+    }
   },
   methods: {
     async login() {
-        const { valid } = await this.$refs.form.validate();
+        const { valid } = await this.$refs.form.validate()
         if (!valid) {
             return;
         }
+        let encodedPassword = btoa(this.password)
         try {
             const response = await axios.post(this.$store.getters.getBackEndUri + "/auth/login", {
 	            "mail_address": this.email,
-	            "password": this.password
-        });
-            console.log(response);
+	            "password": encodedPassword,
+        })
+            console.log(response)
             // expiration date = 24 hours
             let expirationDate = new Date(Date.now() + 24 * 60 * 60 * 1000);
             document.cookie = "token=" + response.data.token + ";expires=" + expirationDate.toUTCString() + ";path=/"
@@ -39,12 +40,12 @@ export default {
             this.$store.commit("setUserMailAddress", response.data.user_mail_address)
             this.$router.push("/");
         } catch (error) {
-            console.log(error);
-            this.requestError = error.response.data.message;
+            console.log(error)
+            this.requestError = error.response.data.message
         }
     },
   },
-};
+}
 </script>
 
 <template>

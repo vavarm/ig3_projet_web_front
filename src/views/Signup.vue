@@ -1,5 +1,5 @@
 <script>
-import axios from "axios";
+import axios from "axios"
 
 export default{
     name: "SignupForm",
@@ -31,22 +31,23 @@ export default{
     },
     methods: {
         async signup() {
-            const { valid } = await this.$refs.form.validate();
+            const { valid } = await this.$refs.form.validate()
             if (!valid) {
-                return;
+                return
             }
+            let encodedPassword = btoa(this.password)
             try {
                 const response = await axios.post(this.$store.getters.getBackEndUri + "/auth/signup", {
                     "mail_address": this.email,
                     "username": this.username,
-                    "password": this.password,
+                    "password": encodedPassword,
                     "suscribed": this.newsletter,
                 });
-                console.log(response);
-                this.$router.push("/login");
+                console.log(response)
+                this.$router.push("/login")
             } catch (error) {
-                console.log(error);
-                this.requestError = error.response.data.message;
+                console.log(error)
+                this.requestError = error.response.data.message
             }
         }
     }

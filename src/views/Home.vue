@@ -36,7 +36,7 @@ export default {
     <div class="home-section">
       <div class="front-text">
         <h1 class="display-1 font-weight-bold mb-4">{{title}}</h1>
-        <p class="subheading mb-5">{{description}}<b> Join us now!</b></p>
+        <p class="subheading mb-5">{{description}}<br/><b> Join us now!</b></p>
         <div v-if="!isLoggedIn" class="d-flex justify-center">
           <v-btn color="primary" dark class="mr-3" to="login">Login</v-btn>
           <v-btn color="secondary" dark to="/signup">Signup</v-btn>
