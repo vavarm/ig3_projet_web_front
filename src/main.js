@@ -8,6 +8,7 @@ import Home from "./views/Home.vue"
 import Events from "./views/Events.vue"
 import MyEvents from "./views/MyEvents.vue"
 import Event from "./views/Event.vue"
+import Lessons from "./views/Lessons.vue"
 import Users from "./views/Users.vue"
 import Account from "./views/Account.vue"
 import * as VueRouter from "vue-router"
@@ -22,6 +23,7 @@ const routes = [
   { path: "/events", component: Events },
   { path: "/myevents", component: MyEvents },
   { path: "/event/:id", component: Event },
+  { path: "/lessons", component: Lessons },
   { path: "/login", component: Login },
   { path: "/signup", component: Signup },
   { path: "/users", component: Users },

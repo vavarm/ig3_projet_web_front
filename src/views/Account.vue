@@ -6,6 +6,7 @@ export default{
     data() {
         return {
             user: {},
+            deleteDialog: false,
         }
     },
     created() {
@@ -48,12 +49,40 @@ export default{
                 this.$router.push("/login")
             }
         },
+        async deleteUser(){
+            this.deleteDialog = false
+            try {
+                const response = await axios.delete(this.$store.getters.getBackEndUri + "/auth/users/" + this.$store.getters.getMailAddress)
+                console.log(response)
+                this.$store.commit("logout")
+                this.$router.push("/login")
+            } catch (error) {
+                console.log(error);
+                this.$store.commit("logout")
+                this.$router.push("/login")
+            }
+        }
     }
 }
 
 </script>
 
 <template>
+    <v-dialog v-model="deleteDialog" max-width="500px">
+        <v-card>
+            <v-card-title>
+                <span class="headline">Delete account</span>
+            </v-card-title>
+            <v-card-text>
+                Are you sure you want to delete your account?
+            </v-card-text>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="orange darken-1" @click="deleteDialog = false" variant="flat">Cancel</v-btn>
+                <v-btn color="red darken-1" @click="deleteUser()" variant="flat">Delete</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
     <div class="ma-4">
         <h1>Account</h1>
         <v-card>
@@ -80,6 +109,14 @@ export default{
                 <p>{{ user.suscribed ? "Yes" : "No" }}</p>
                 <v-btn v-if="user.suscribed" @click="unsuscribe">Unsuscribe</v-btn>
                 <v-btn v-else @click="suscribe">Suscribe</v-btn>
+            </v-card-text>
+        </v-card>
+        <v-card>
+            <v-card-title>
+                <h2>Delete account</h2>
+            </v-card-title>
+            <v-card-text>
+                <v-btn color="red darken-1" @click="deleteDialog = true" variant="flat">Delete account</v-btn>
             </v-card-text>
         </v-card>
     </div>

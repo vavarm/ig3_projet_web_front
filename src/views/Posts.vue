@@ -101,13 +101,16 @@ export default {
             }
         },
         async createTag() {
-            if (this.newtag.length > 20) {
-                this.errorDialog = "Tag must be less than 20 characters";
-                return;
+            if (this.newTag === ""){
+                return
             }
-            if (this.existingTags.includes(this.newTag)) {
-                this.errorDialog = "Tag already exists";
-                return;
+            if (this.existingTags.includes(this.newTag)){
+                this.errorDialog = "Tag already exists"
+                return
+            }
+            if (this.newTag.length > 20){
+                this.errorDialog = "Tag must be less than 20 characters"
+                return
             }
             try {
                 const response = await axios.post(this.$store.getters.getBackEndUri + "/tags", {
@@ -167,7 +170,7 @@ export default {
                         deletable-chips
                     ></v-select>
                     <div class="line"></div>
-                    <v-text-field v-model="newTag" label="New tag" :rules="[v => !!v || 'Tag is required', v => v.length <= 20 || 'Tag must be less than 20 characters']"></v-text-field>
+                    <v-text-field v-model="newTag" label="New tag" :rules="[v => v.length <= 20 || 'Tag must be less than 20 characters']"></v-text-field>
                     <v-btn color="primary" @click="createTag">Create tag</v-btn>
                     <div class="line"></div>
                 </v-form>
@@ -195,7 +198,7 @@ export default {
             deletable-chips
         ></v-select>
         <div>
-            <div v-if="posts.length === 0" class="loading">Loading...</div>
+            <div v-if="posts.length === 0">No posts found</div>
             <div v-else v-for="post in filteredPosts" :key="post.id" class="d-flex" style="width: 100%" xs12 md6 lg4>
                 <v-card class="mb-4" color="#5A33CE" style="width: 100%">
                     <v-card-title>

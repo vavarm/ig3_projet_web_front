@@ -152,6 +152,17 @@ export default{
                 })
         },
         async createTag(){
+            if (this.newTag === ""){
+                return
+            }
+            if (this.existingTags.includes(this.newTag)){
+                this.errorDialog = "Tag already exists"
+                return
+            }
+            if (this.newTag.length > 20){
+                this.errorDialog = "Tag must be less than 20 characters"
+                return
+            }
             await axios
                 .post(this.$store.getters.getBackEndUri + "/tags", {
                     "name": this.newTag,
@@ -250,7 +261,7 @@ export default{
                         deletable-chips
                     ></v-select>
                     <div class="line"></div>
-                    <v-text-field v-model="newTag" label="New tag" :rules="[v => !!v || 'Tag is required', v => v.length <= 20 || 'Tag must be less than 20 characters']"></v-text-field>
+                    <v-text-field v-model="newTag" label="New tag" :rules="[v => v.length <= 20 || 'Tag must be less than 20 characters']"></v-text-field>
                     <v-btn color="primary" @click="createTag">Create tag</v-btn>
                     <div class="line"></div>
                 </v-form>
@@ -303,7 +314,7 @@ export default{
             deletable-chips
         ></v-select>
         <div>
-            <div v-if="events.length === 0" class="loading">Loading...</div>
+            <div v-if="events.length === 0">No events found</div>
             <div v-for="event in filteredEvents" :key="event.id" class="d-flex" style="width: 100%" xs12 md6 lg4>
                 <v-card class="mb-4" color="#5A33CE" style="width: 100%" @click="this.$router.push({ path: '/event/' + event.id })">
                     <v-card-title>

@@ -38,11 +38,11 @@ export default {
           Home
         </v-tooltip>
       </v-btn>
-      <v-btn>
+      <v-btn to="/lessons">
         <v-icon>mdi-book</v-icon>
-        <span v-if="lgAndUp" class="ml-1">Courses</span>
+        <span v-if="lgAndUp" class="ml-1">Lessons</span>
         <v-tooltip activator="parent" location="bottom">
-          Courses
+          Lessons
         </v-tooltip>
       </v-btn>
       <v-btn v-if="isLoggedIn" to="/events">
