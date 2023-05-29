@@ -4,7 +4,8 @@ export default new Vuex.Store({
   state: {
     user_admin_level: 0,
     user_mail_address: null,
-    back_end_uri: import.meta.env.VITE_BACK_END_URI
+    back_end_uri: import.meta.env.VITE_BACK_END_URI,
+    domain_name: import.meta.env.VITE_DOMAIN_NAME
   },
   mutations: {
     setUserAdminLevel(state, user_admin_level) {
@@ -35,6 +36,9 @@ export default new Vuex.Store({
     },
     getBackEndUri(state) {
       return state.back_end_uri
+    },
+    getDomainName(state) {
+      return state.domain_name
     }
   }
 });

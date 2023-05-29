@@ -33,9 +33,9 @@ export default {
             console.log(response)
             // expiration date = 24 hours
             let expirationDate = new Date(Date.now() + 24 * 60 * 60 * 1000);
-            document.cookie = "token=" + response.data.token + ";expires=" + expirationDate.toUTCString() + ";path=/"
-            document.cookie = "user_mail_address=" + response.data.user_mail_address + ";expires=" + expirationDate.toUTCString() + ";path=/"
-            document.cookie = "user_admin_level=" + response.data.user_admin_level + ";expires=" + expirationDate.toUTCString() + ";path=/"
+            document.cookie = "token=" + response.data.token + ";expires=" + expirationDate.toUTCString() + ";path=/" + ";domain=" + this.$store.getters.getDomainName
+            document.cookie = "user_mail_address=" + response.data.user_mail_address + ";expires=" + expirationDate.toUTCString() + ";path=/" + ";domain=" + this.$store.getters.getDomainName
+            document.cookie = "user_admin_level=" + response.data.user_admin_level + ";expires=" + expirationDate.toUTCString() + ";path=/" + ";domain=" + this.$store.getters.getDomainName
             this.$store.commit("setUserAdminLevel", response.data.user_admin_level)
             this.$store.commit("setUserMailAddress", response.data.user_mail_address)
             this.$router.push("/");
