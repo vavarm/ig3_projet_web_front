@@ -160,13 +160,13 @@ export default {
         </v-card>
     </v-dialog>
 
-    <v-card class="d-flex flex-column align-center ma-10 pa-4" color="grey">
+    <v-card class="ma-10 pa-4" color="grey">
         <v-card-title class="event-title">{{event.name}}</v-card-title>
         <div class="d-flex flex-row">
             <v-chip color="white" class="ml-2 mb-2" v-for="tag in event.Tags" :key="tag.name">{{tag.name}}</v-chip>
         </div>
         <v-card-text>
-            <p>{{ event.description }}</p>
+            {{ event.description }}
         </v-card-text>
         <v-card-text>
             <v-row><v-icon>mdi-calendar</v-icon><p> Date: {{ formatDate(event.date) }}</p></v-row>
@@ -201,5 +201,6 @@ export default {
         color: white;
         border-radius: 50px;
         margin-bottom: 10px;
+        text-align: center;
     }
 </style>

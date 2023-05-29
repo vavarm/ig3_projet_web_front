@@ -27,9 +27,9 @@ export default{
                     this.$router.push("/login")
                 })
         },
-        async suscribe(){
+        async subscribe(){
             try {
-                const response = await axios.put(this.$store.getters.getBackEndUri + "/auth/users/suscribe")
+                const response = await axios.put(this.$store.getters.getBackEndUri + "/auth/users/subscribe")
                 console.log(response)
                 this.getUser()
             } catch (error) {
@@ -38,9 +38,9 @@ export default{
                 this.$router.push("/login")
             }
         },
-        async unsuscribe(){
+        async unsubscribe(){
             try {
-                const response = await axios.put(this.$store.getters.getBackEndUri + "/auth/users/unsuscribe")
+                const response = await axios.put(this.$store.getters.getBackEndUri + "/auth/users/unsubscribe")
                 console.log(response)
                 this.getUser()
             } catch (error) {
@@ -106,9 +106,9 @@ export default{
                 <h2>Agree to receive emails ?</h2>
             </v-card-title>
             <v-card-text class="d-flex flex-row justify-space-between align-center">
-                <p>{{ user.suscribed ? "Yes" : "No" }}</p>
-                <v-btn v-if="user.suscribed" @click="unsuscribe">Unsuscribe</v-btn>
-                <v-btn v-else @click="suscribe">Suscribe</v-btn>
+                <p>{{ user.subscribed ? "Yes" : "No" }}</p>
+                <v-btn v-if="user.subscribed" @click="unsubscribe">Unsubscribe</v-btn>
+                <v-btn v-else @click="subscribe">Subscribe</v-btn>
             </v-card-text>
         </v-card>
         <v-card>

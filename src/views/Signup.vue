@@ -41,7 +41,7 @@ export default{
                     "mail_address": this.email,
                     "username": this.username,
                     "password": encodedPassword,
-                    "suscribed": this.newsletter,
+                    "subscribed": this.newsletter,
                 });
                 console.log(response)
                 this.$router.push("/login")

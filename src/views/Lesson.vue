@@ -81,23 +81,18 @@ export default {
             </v-card-actions>
         </v-card>
     </v-dialog>
-
-    <div class="d-flex flex-column align-start justify-space-between pa-4 page-section">
-        <div style="width: 100%">
-            <div class="d-flex flex-md-row flex-column justify-space-between align-center" style="width: 100%">
-                <div>
-                    <h1 class="lesson-title">{{lesson.name}}</h1>
-                    <h3 class="lesson-description">{{ lesson.description }}</h3>
-                </div>
-                <div class="d-flex flex-column">
-                    <div class="d-flex flex-row"><v-icon>mdi-calendar</v-icon><p> Date of creation: {{ formatDate(lesson.createdAt) }}</p></div>
-                    <div class="d-flex flex-row"><v-icon>mdi-pen</v-icon><p> Author: {{ lesson.author_id }}</p></div>
-                </div>
-            </div>
-            <div class="d-flex flex-row justify-center">
+    <div class="d-flex flex-column justify-space-between page-section" style="width: 100%">
+        <v-card class="pa-4">
+        <v-card-title class="lesson-title">{{lesson.name}}</v-card-title>
+        <div class="d-flex flex-row justify-center">
             <v-chip class="ml-2 mb-2" v-for="tag in lesson.Tags" :key="tag.name">{{tag.name}}</v-chip>
-            </div>
         </div>
+        <v-card-text class="lesson-description">{{ lesson.description }}</v-card-text>
+        <v-card-text>
+            <div class="d-flex flex-row"><v-icon>mdi-calendar</v-icon><p> Date of creation: {{ formatDate(lesson.createdAt) }}</p></div>
+            <div class="d-flex flex-row"><v-icon>mdi-pen</v-icon><p> Author: {{ lesson.author_id }}</p></div>
+        </v-card-text>
+        </v-card>
         <div class="pdf-container"><iframe width="100%" height="100%" :src="`${this.documentUrl}`"></iframe></div>
         <div class="d-flex flex-row justify-space-between" style="width: 100%">
             <v-btn @click="openPdf()" color="primary" variant="flat">
@@ -106,7 +101,7 @@ export default {
             </v-btn>
             <v-btn v-if="(this.$store.getters.getMailAddress === lesson.author_id) || this.$store.getters.isAdmin" color="red darken-1" @click="openDeleteDialog()" variant="flat">
                 <v-icon>mdi-delete</v-icon>
-                    Delete
+                Delete
             </v-btn>
         </div>
     </div>

@@ -32,7 +32,6 @@ export default {
   methods: {
     handleDrawer() {
       this.drawer = !this.drawer
-      console.log(this.drawer)
     },
     logout() {
       this.drawer = false
