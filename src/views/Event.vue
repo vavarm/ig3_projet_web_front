@@ -43,6 +43,7 @@ export default {
                 .then((response) => {
                     console.log(response)
                     this.event = response.data
+                    this.event.time = this.event.time.split(":").slice(0, 2).join(":")
                 })
                 .catch((error) => {
                     console.log(error)
@@ -124,9 +125,9 @@ export default {
             this.deleteDialog = false
         },
         formatDate(dateString) {
-            const date = new Date(dateString);
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return date.toLocaleDateString('en-US', options);
+            const date = new Date(dateString)
+            const options = { year: 'numeric', month: 'long', day: 'numeric' }
+            return date.toLocaleDateString('en-US', options)
         },
     }
 }
@@ -169,7 +170,7 @@ export default {
             {{ event.description }}
         </v-card-text>
         <v-card-text>
-            <v-row><v-icon>mdi-calendar</v-icon><p> Date: {{ formatDate(event.date) }}</p></v-row>
+            <v-row><v-icon>mdi-calendar</v-icon><p> Date: {{ formatDate(event.date) + " " + event.time }}</p></v-row>
             <v-row><v-icon>mdi-clock</v-icon><p> Duration: {{ event.duration }}</p></v-row>
             <v-row><v-icon>mdi-map-marker</v-icon><p> Address: {{ event.location }}, {{ event.postal_code }} {{ event.city }}</p></v-row>
             <v-row><v-icon>mdi-account-tie</v-icon><p> Organizer: {{ event.organizer_id }}</p></v-row>

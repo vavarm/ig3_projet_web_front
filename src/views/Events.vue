@@ -16,6 +16,7 @@ export default{
             name: "",
             description: "",
             date: null,
+            time: null,
             duration: 0,
             location: "",
             postal_code: "",
@@ -101,6 +102,9 @@ export default{
             const options = { year: 'numeric', month: 'long', day: 'numeric' }
             return date.toLocaleDateString('en-US', options)
         },
+        formatTime(arg) {
+            return arg.split(":").slice(0, 2).join(":")
+        },
         openDialog(){
             this.dialog = true
         },
@@ -109,6 +113,7 @@ export default{
             this.name = ""
             this.description = ""
             this.date = null
+            this.time = null
             this.duration = 0
             this.location = ""
             this.postal_code = ""
@@ -132,6 +137,7 @@ export default{
                     "description": this.description,
                     "date": this.date,
                     "duration": this.duration,
+                    "time": this.time,
                     "location": this.location,
                     "postal_code": this.postal_code,
                     "city": this.city,
@@ -243,6 +249,7 @@ export default{
                     <v-text-field v-model="name" label="Name" :rules="[v => !!v || 'Name is required']"></v-text-field>
                     <v-textarea v-model="description" label="Description" :rules="[v => !!v || 'Description is required']"></v-textarea>
                     <v-text-field v-model="date" label="Date" type="date" :rules="[v => !!v || 'Date is required']"></v-text-field>
+                    <v-text-field v-model="time" label="Time" type="time" :rules="[v => !!v || 'Time is required']"></v-text-field>
                     <v-text-field v-model="duration" label="Duration (hours)" type="number" :rules="[v => !!v || 'Duration is required']"></v-text-field>
                     <v-text-field v-model="location" label="Location" :rules="[v => !!v || 'Location is required']"></v-text-field>
                     <v-text-field v-model="postal_code" label="Postal code" :rules="[v => !!v || 'Postal code is required']"></v-text-field>
@@ -323,7 +330,7 @@ export default{
                     <div class="d-flex flex-row" style="width: 100%">
                         <v-chip color="white" class="ml-2 mb-2" v-for="tag in event.Tags" :key="tag.name">{{tag.name}}</v-chip>
                     </div>
-                    <v-card-text>{{"Beginning of the event: " + formatDate(event.date) + " | Duration: " + event.duration + " hours | Address: "+ event.location + ", " + event.postal_code + " " + event.city }}</v-card-text>
+                    <v-card-text>{{"Beginning of the event: " + formatDate(event.date) + " " + formatTime(event.time)  + " | Duration: " + event.duration + " hours | Address: "+ event.location + ", " + event.postal_code + " " + event.city }}</v-card-text>
                     <v-card-text>{{event.description}}</v-card-text>
                     <v-card-subtitle v-if="event.price > 0">{{"Price: " + event.price + " USD"}}</v-card-subtitle>
                     <v-card-subtitle v-else>{{"Price: Free"}}</v-card-subtitle>
