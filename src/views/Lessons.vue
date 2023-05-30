@@ -62,13 +62,29 @@ export default {
                 this.dialogError = "Description must be less than 1000 characters"
                 return
             }
+            await axios
+                .post(this.$store.getters.getBackEndUri + "/lessons", {
+                    "name": this.name,
+                    "description": this.description,
+                    "tags": this.selectedTags,
+                })
+                .then((response) => {
+                    console.log(response)
+                    this.uploadLesson(response.data.id)
+                })
+                .catch((error) => {
+                    console.log(error)
+                    this.dialogError = error.response.data.message
+                    this.$store.commit("logout")
+                    this.$router.push("/login")
+                })
+        },
+        async uploadLesson(id){
+            if (this.selectedFile === null){
+                this.dialogError = "File cannot be empty"
+                return
+            }
             const formData = new FormData()
-            formData.append("name", this.name)
-            formData.append("description", this.description)
-            this.selectedTags.forEach((tag, index) => {
-                formData.append("tags[" + index + "]", tag)
-            })
-            console.log(this.selectedFile[0])
             formData.append("file", this.selectedFile[0])
 
             for (var pair of formData.entries()) {
@@ -76,21 +92,18 @@ export default {
             }
 
             await axios
-                .post(this.$store.getters.getBackEndUri + "/lessons", formData, {headers: {
+                .post(this.$store.getters.getBackEndUri + `/lessons/upload/${id}`, formData, {headers: {
                     "Content-Type": "multipart/form-data",
                 }})
                 .then((response) => {
                     console.log(response)
                     this.getLessons()
                     this.openDialog = false
-                    this.name = ""
-                    this.description = ""
                     this.selectedFile = null
-                    this.selectedTags = []
                 })
                 .catch((error) => {
                     console.log(error)
-                    this.errorDialog = error.response.data.message
+                    this.dialogError = error.response.data.message
                     this.$store.commit("logout")
                     this.$router.push("/login")
                 })
@@ -115,11 +128,11 @@ export default {
                 return
             }
             if (this.existingTags.includes(this.newTag)){
-                this.errorDialog = "Tag already exists"
+                this.dialogError = "Tag already exists"
                 return
             }
             if (this.newTag.length > 20){
-                this.errorDialog = "Tag must be less than 20 characters"
+                this.dialogError = "Tag must be less than 20 characters"
                 return
             }
             await axios
@@ -133,7 +146,7 @@ export default {
                 })
                 .catch((error) => {
                     console.log(error)
-                    this.errorDialog = error.response.data.message
+                    this.dialogError = error.response.data.message
                     this.$store.commit("logout")
                     this.$router.push("/login")
                 })
@@ -177,7 +190,7 @@ export default {
             <v-card-title>
                 <span class="headline">Create a new lesson</span>
             </v-card-title>
-            <span v-if="errorDialog !== ''" class="error">{{ dialogError }}</span>
+            <span v-if="dialogError !== ''" class="error">{{ dialogError }}</span>
             <v-form ref="form">
                 <v-text-field
                     v-model="name"
