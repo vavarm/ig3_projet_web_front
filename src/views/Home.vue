@@ -11,9 +11,8 @@ export default {
   data() {
     return{
       title: "Learn'nTeach",
-      description: "A platform for learning and teaching around diverse topics and skills with a community of passionate people. You can also create your events and participate in others' events in the United States.",
+      description: "A platform for learning and teaching around diverse topics and skills with a community of passionate people. You can also create your events and participate in others' events in all the United States.",
     }
-    
   },
   methods: {
     scrollToPosts() {
