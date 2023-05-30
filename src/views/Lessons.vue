@@ -58,8 +58,8 @@ export default {
                 this.dialogError = "Name must be less than 20 characters"
                 return
             }
-            if (this.description.length > 1000){
-                this.dialogError = "Description must be less than 1000 characters"
+            if (this.description.length > 200){
+                this.dialogError = "Description must be less than 200 characters"
                 return
             }
             await axios
@@ -200,7 +200,7 @@ export default {
                 <v-textarea
                     v-model="description"
                     label="Description"
-                    :rules="[v => !!v || 'Description is required', v => v.length <= 1000 || 'Description must be less than 1000 characters']"
+                    :rules="[v => !!v || 'Description is required', v => v.length <= 200 || 'Description must be less than 200 characters']"
                 ></v-textarea>
                 <v-file-input label="File input" v-model="selectedFile" accept="application/pdf"></v-file-input>
                 <v-select
