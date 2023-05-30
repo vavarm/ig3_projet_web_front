@@ -84,6 +84,11 @@ export default {
                 this.dialogError = "File cannot be empty"
                 return
             }
+            //filesize limit 0.9MB
+            if(this.selectedFile[0].size > 900000){
+                this.dialogError = "File size must be less than 0.9MB"
+                return
+            }
             const formData = new FormData()
             formData.append("file", this.selectedFile[0])
 
