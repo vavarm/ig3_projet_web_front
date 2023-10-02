@@ -18,6 +18,8 @@ Le projet de ce repository a été déployé et peut être testé à l'adresse s
 
 **Priomise client :** Axios
 
+**Store :** Vuex
+
 **Autres dépendances :** cf ``package.json``
 
 ## La structure des fichiers
