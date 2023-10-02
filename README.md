@@ -14,7 +14,7 @@ Le projet de ce repository a été déployé et peut être testé à l'adresse s
 
 **Framework :** VueJS
 
-**UI library :** Express
+**UI library :** Vuetify
 
 **Priomise client :** Axios
 
